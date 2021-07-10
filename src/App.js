@@ -3,6 +3,7 @@ import Home from "./pages/home/Home";
 import Catalog from "./pages/catalog/Catalog";
 import Story from "./pages/story/Story";
 import About from "./pages/about/About";
+import Agreement from "./pages/agreement/Agreement";
 import { Route, Link } from "react-router-dom";
 import "./assets/css/App.css";
 import { Nav, Navbar } from "react-bootstrap";
@@ -16,17 +17,52 @@ export default function App() {
           <img className="navbar-img" src={da_logo} alt="" /> FHDATime
         </Link>
         <Nav className="mr-auto">
-          <Link className="nav-link" to="/">Home</Link>
-          <Link className="nav-link" to="/catalog">Catalog</Link>
-          <Link className="nav-link" to="/story">Story</Link>
-          <Link className="nav-link" to="/about">About</Link>
+          <Link className="nav-link" to="/">
+            Home
+          </Link>
+          <Link className="nav-link" to="/catalog">
+            Catalog
+          </Link>
+          <Link className="nav-link" to="/story">
+            Story
+          </Link>
+          <Link className="nav-link" to="/about">
+            About
+          </Link>
+          <Link className="nav-link" to="/about">
+            About
+          </Link>
+          <Link className="nav-link" to="/agreement">
+            Agreement
+          </Link>
         </Nav>
       </Navbar>
 
-      <Route exact path="/" render={ (routerProps) => < Home routerProps={routerProps} />} />
-      <Route exact path="/catalog" render={ (routerProps) => < Catalog routerProps={routerProps} />} />
-      <Route exact path="/story" render={ (routerProps) => < Story routerProps={routerProps} />} />
-      <Route exact path="/about" render={ (routerProps) => < About routerProps={routerProps} />} />
+      <Route
+        exact
+        path="/"
+        render={(routerProps) => <Home routerProps={routerProps} />}
+      />
+      <Route
+        exact
+        path="/catalog"
+        render={(routerProps) => <Catalog routerProps={routerProps} />}
+      />
+      <Route
+        exact
+        path="/story"
+        render={(routerProps) => <Story routerProps={routerProps} />}
+      />
+      <Route
+        exact
+        path="/about"
+        render={(routerProps) => <About routerProps={routerProps} />}
+      />
+      <Route
+        exact
+        path="/agreement"
+        render={(routerProps) => <Agreement routerProps={routerProps} />}
+      />
     </div>
   );
 }
