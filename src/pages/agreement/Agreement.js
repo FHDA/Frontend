@@ -31,23 +31,20 @@ export default function Agreement() {
       if (needBorder) {
         result = (
           <React.Fragment>
-            <div>
-              <div style={{ border: "2px solid red", margin: "10px" }}>
-                {relationshipKeyword}
-                {`${obj["content"]} - ${obj["message"]}`}
-              </div>
+            {relationshipKeyword}
+            <div style={{ border: "2px solid red", margin: "10px" }}>
+              <div>{`${obj["content"]} - ${obj["message"]}`}</div>
             </div>
+            {relationshipKeyword}
             {equalRect}
           </React.Fragment>
         );
       } else {
         result = (
           <React.Fragment>
+            {relationshipKeyword}
             <div>
-              <div>
-                {relationshipKeyword}
-                {`${obj["content"]} - ${obj["message"]}`}
-              </div>
+              <div>{`${obj["content"]} - ${obj["message"]}`}</div>
             </div>
             {equalRect}
           </React.Fragment>
@@ -78,6 +75,7 @@ export default function Agreement() {
         <React.Fragment>
           {needTitle && <h4>{obj["message"]}</h4>}
           <div style={{ border: "2px solid red", margin: "10px" }}>{rect}</div>
+          {obj["relationship"]}
           {equalRect}
         </React.Fragment>
       );
@@ -100,11 +98,9 @@ export default function Agreement() {
 
       return (
         <React.Fragment>
+          {relationshipKeyword}
           <div>
-            <div>
-              {relationshipKeyword}
-              {`${obj["content"]} - ${obj["message"]}`}
-            </div>
+            <div>{`${obj["content"]} - ${obj["message"]}`}</div>
           </div>
         </React.Fragment>
       );
@@ -114,8 +110,19 @@ export default function Agreement() {
         const courseRect = renderEq(component);
         rect.push(courseRect);
       }
+
+      let relationshipKeyword = null;
+      {
+        if ("relationship" in obj && obj["relationships"] !== "") {
+          relationshipKeyword = (
+            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
+          );
+        }
+      }
+
       return (
         <React.Fragment>
+          {relationshipKeyword}
           <div style={{ border: "2px solid blue", margin: "10px" }}>{rect}</div>
         </React.Fragment>
       );

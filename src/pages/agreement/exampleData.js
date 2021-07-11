@@ -136,7 +136,7 @@ exports.data = {
                   equivalences: {
                     message: "No Course Articulated",
                     content: "",
-                    relationship: "or",
+                    relationship: "",
                   },
                 },
                 {
