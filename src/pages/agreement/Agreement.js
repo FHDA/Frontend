@@ -16,10 +16,12 @@ export default function Agreement() {
           );
         }
       }
+      let foundEq = false;
       let needBorder = false;
       let equalRect = [];
       if ("equivalences" in obj && obj["equivalences"] !== "") {
         //console.log(obj["equivalences"]);
+        foundEq = true;
         equalRect = renderEq(obj["equivalences"]);
       }
 
@@ -31,12 +33,19 @@ export default function Agreement() {
       if (needBorder) {
         result = (
           <React.Fragment>
-            {relationshipKeyword ? relationshipKeyword : null}
-            <div style={{ border: "2px solid red", margin: "10px" }}>
-              <div>{`${obj["content"]} - ${obj["message"]}`}</div>
+            <div style={{ clear: "both" }}></div>
+            <div>
+              <div style={{ float: "left" }}>
+                {relationshipKeyword ? relationshipKeyword : null}
+                <div style={{ border: "2px solid red", margin: "10px" }}>
+                  <div>{`${obj["content"]} - ${obj["message"]}`}</div>
+                </div>
+              </div>
+              <div style={{ float: "right" }}>
+                {relationshipKeyword ? relationshipKeyword : null}
+                {equalRect}
+              </div>
             </div>
-            {relationshipKeyword ? relationshipKeyword : null}
-            {equalRect}
           </React.Fragment>
         );
       } else {
@@ -62,8 +71,10 @@ export default function Agreement() {
       }
 
       let equalRect = [];
+      let foundEql = false;
       if ("equivalences" in obj && obj["equivalences"] !== "") {
         //console.log(obj["equivalences"]);
+        foundEql = true;
         equalRect = renderEq(obj["equivalences"]);
       }
 
@@ -71,6 +82,27 @@ export default function Agreement() {
       if (obj["message"] !== "") {
         needTitle = true;
       }
+
+      if (foundEql) {
+        return (
+          <React.Fragment>
+            {needTitle && <h4>{obj["message"]}</h4>}
+            <div style={{ clear: "both" }}></div>
+            <div>
+              <div style={{ float: "left" }}>
+                <div style={{ border: "2px solid red", margin: "10px" }}>
+                  {rect}
+                </div>
+              </div>
+              <div style={{ float: "right" }}>
+                {obj["relationship"]}
+                {equalRect}
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      }
+
       return (
         <React.Fragment>
           {needTitle && <h4>{obj["message"]}</h4>}
