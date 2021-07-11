@@ -10,7 +10,7 @@ export default function Agreement() {
     ) {
       let relationshipKeyword = null;
       {
-        if ("relationship" in obj && obj["relationships"] !== "") {
+        if ("relationship" in obj && obj["relationship"] !== "") {
           relationshipKeyword = (
             <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
           );
@@ -31,18 +31,18 @@ export default function Agreement() {
       if (needBorder) {
         result = (
           <React.Fragment>
-            {relationshipKeyword}
+            {relationshipKeyword ? relationshipKeyword : null}
             <div style={{ border: "2px solid red", margin: "10px" }}>
               <div>{`${obj["content"]} - ${obj["message"]}`}</div>
             </div>
-            {relationshipKeyword}
+            {relationshipKeyword ? relationshipKeyword : null}
             {equalRect}
           </React.Fragment>
         );
       } else {
         result = (
           <React.Fragment>
-            {relationshipKeyword}
+            {relationshipKeyword ? relationshipKeyword : null}
             <div>
               <div>{`${obj["content"]} - ${obj["message"]}`}</div>
             </div>
@@ -89,7 +89,8 @@ export default function Agreement() {
     ) {
       let relationshipKeyword = null;
       {
-        if ("relationship" in obj && obj["relationships"] !== "") {
+        if ("relationship" in obj && obj["relationship"] !== "") {
+          console.log(obj["relationship"]);
           relationshipKeyword = (
             <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
           );
@@ -98,7 +99,7 @@ export default function Agreement() {
 
       return (
         <React.Fragment>
-          {relationshipKeyword}
+          {relationshipKeyword ? relationshipKeyword : null}
           <div>
             <div>{`${obj["content"]} - ${obj["message"]}`}</div>
           </div>
@@ -113,7 +114,7 @@ export default function Agreement() {
 
       let relationshipKeyword = null;
       {
-        if ("relationship" in obj && obj["relationships"] !== "") {
+        if ("relationship" in obj && obj["relationship"] !== "") {
           relationshipKeyword = (
             <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
           );
@@ -122,7 +123,7 @@ export default function Agreement() {
 
       return (
         <React.Fragment>
-          {relationshipKeyword}
+          {relationshipKeyword ? relationshipKeyword : null}
           <div style={{ border: "2px solid blue", margin: "10px" }}>{rect}</div>
         </React.Fragment>
       );
