@@ -3,10 +3,6 @@ import React from "react";
 const { data } = require("./exampleData");
 
 export default function Agreement() {
-  console.log(data["UCLA"]["DeAnza College"]["Physics/B.A."]);
-
-  const agreement = data["UCLA"]["DeAnza College"]["Physics/B.A."];
-
   const renderRect = (obj) => {
     if (
       typeof obj["content"] === "string" ||
@@ -20,26 +16,67 @@ export default function Agreement() {
           );
         }
       }
-      return (
-        <div>
-          {relationshipKeyword}
-          {`${obj["content"]} - ${obj["message"]}`}
-        </div>
-      );
+      let needBorder = false;
+      let equalRect = [];
+      if ("equivalences" in obj && obj["equivalences"] !== "") {
+        //console.log(obj["equivalences"]);
+        equalRect = renderEq(obj["equivalences"]);
+      }
+
+      let result = null;
+      if ("equivalences" in obj) {
+        needBorder = true;
+      }
+
+      if (needBorder) {
+        result = (
+          <React.Fragment>
+            <div>
+              <div style={{ border: "2px solid red", margin: "10px" }}>
+                {relationshipKeyword}
+                {`${obj["content"]} - ${obj["message"]}`}
+              </div>
+            </div>
+            {equalRect}
+          </React.Fragment>
+        );
+      } else {
+        result = (
+          <React.Fragment>
+            <div>
+              <div>
+                {relationshipKeyword}
+                {`${obj["content"]} - ${obj["message"]}`}
+              </div>
+            </div>
+            {equalRect}
+          </React.Fragment>
+        );
+      }
+
+      return result;
     } else {
-      console.log(typeof obj["content"]);
+      //console.log(typeof obj["content"]);
       const rect = [];
+
       for (const component of obj["content"]) {
-        const courseRect = renderRect(component);
+        const courseRect = renderRect(component, true);
         rect.push(courseRect);
       }
 
       let equalRect = [];
       if ("equivalences" in obj && obj["equivalences"] !== "") {
-        equalRect = renderRect(obj["equivalences"]);
+        //console.log(obj["equivalences"]);
+        equalRect = renderEq(obj["equivalences"]);
+      }
+
+      let needTitle = false;
+      if (obj["message"] !== "") {
+        needTitle = true;
       }
       return (
         <React.Fragment>
+          {needTitle && <h4>{obj["message"]}</h4>}
           <div style={{ border: "2px solid red", margin: "10px" }}>{rect}</div>
           {equalRect}
         </React.Fragment>
@@ -47,70 +84,49 @@ export default function Agreement() {
     }
   };
 
-  const testObj = {
-    message: "",
-    content: [
+  const renderEq = (obj) => {
+    if (
+      typeof obj["content"] === "string" ||
+      obj["content"] instanceof String
+    ) {
+      let relationshipKeyword = null;
       {
-        message: "Physics for Scientists and Engineers: Mechanics (5.00)",
-        content: "PHYSICS 1A",
-        relationship: "",
-      },
-      {
-        message:
-          "Physics for Scientists and Engineers: Oscillations, Waves, Electricand Magnetic Fields (5.00)",
-        content: "PHYSICS 1B",
-        relationship: "and",
-      },
-      {
-        message:
-          "Physics for Scientists and Engineers: Electrodynamics, Optics, and Special Relativity (5.00)",
-        content: "PHYSICS 1C",
-        relationship: "and",
-      },
-      {
-        message:
-          "Physics Laboratory for Scientists and Engineers: Mechanics (2.00)",
-        content: "PHYSICS 4AL",
-        relationship: "and",
-      },
-      {
-        message:
-          "Physics Laboratory for Scientists and Engineers: Electricity and Magnetism (2.00)",
-        content: "PHYSICS 4BL",
-        relationship: "and",
-      },
-    ],
-    relationship: "",
-    equivalences: {
-      message: "",
-      content: [
-        {
-          message: "Physics for Scientists and Engineers: Mechanics (6.00)",
-          content: "PHYS 4A",
-          relationship: "",
-        },
-        {
-          message:
-            "Physics for Scientists and Engineers: Electricity and Magnetism (6.00)",
-          content: "PHYS 4B",
-          relationship: "and",
-        },
-        {
-          message:
-            "Physics for Scientists and Engineers: Fluids, Waves, Optics and Thermodynamics (6.00)",
-          content: "PHYS 4C",
-          relationship: "and",
-        },
-      ],
-      relationship: "",
-    },
+        if ("relationship" in obj && obj["relationships"] !== "") {
+          relationshipKeyword = (
+            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
+          );
+        }
+      }
+
+      return (
+        <React.Fragment>
+          <div>
+            <div>
+              {relationshipKeyword}
+              {`${obj["content"]} - ${obj["message"]}`}
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      const rect = [];
+      for (const component of obj["content"]) {
+        const courseRect = renderEq(component);
+        rect.push(courseRect);
+      }
+      return (
+        <React.Fragment>
+          <div style={{ border: "2px solid blue", margin: "10px" }}>{rect}</div>
+        </React.Fragment>
+      );
+    }
   };
 
   return (
     <React.Fragment>
       <h1>Agreement Example</h1>
-      <div style={{ border: "2px solid red", margin: "10px" }}>
-        {renderRect(data["UCLA"]["DeAnza College"]["Physics/B.A."][1])}
+      <div style={{ border: "2px solid green", margin: "10px" }}>
+        {renderRect(data["UCLA"]["DeAnza College"]["Physics/B.A."][1], false)}
       </div>
     </React.Fragment>
   );
