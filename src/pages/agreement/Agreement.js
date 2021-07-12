@@ -35,6 +35,7 @@ export default function Agreement() {
           <React.Fragment>
             <div style={{ clear: "both" }}></div>
             <div>
+              <div style={{ clear: "both" }}></div>
               <div style={{ float: "left" }}>
                 {relationshipKeyword ? relationshipKeyword : null}
                 <div style={{ border: "2px solid red", margin: "10px" }}>
@@ -45,6 +46,7 @@ export default function Agreement() {
                 {relationshipKeyword ? relationshipKeyword : null}
                 {equalRect}
               </div>
+              <div style={{ clear: "both" }}></div>
             </div>
           </React.Fragment>
         );
@@ -86,9 +88,10 @@ export default function Agreement() {
       if (foundEql) {
         return (
           <React.Fragment>
-            {needTitle && <h4>{obj["message"]}</h4>}
             <div style={{ clear: "both" }}></div>
+            {needTitle && <h4>{obj["message"]}</h4>}
             <div>
+              <div style={{ clear: "both" }}></div>
               <div style={{ float: "left" }}>
                 <div style={{ border: "2px solid red", margin: "10px" }}>
                   {rect}
@@ -98,16 +101,26 @@ export default function Agreement() {
                 {obj["relationship"]}
                 {equalRect}
               </div>
+              <div style={{ clear: "both" }}></div>
             </div>
           </React.Fragment>
         );
       }
 
+      let flag = true;
+      if (equalRect.length === 0) {
+        flag = false;
+      }
+
       return (
         <React.Fragment>
+          <div style={{ clear: "both" }}></div>
+          <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
           {needTitle && <h4>{obj["message"]}</h4>}
           <div style={{ border: "2px solid red", margin: "10px" }}>{rect}</div>
-          {obj["relationship"]}
+          {flag && (
+            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
+          )}
           {equalRect}
         </React.Fragment>
       );
@@ -122,7 +135,7 @@ export default function Agreement() {
       let relationshipKeyword = null;
       {
         if ("relationship" in obj && obj["relationship"] !== "") {
-          console.log(obj["relationship"]);
+          //console.log(obj["relationship"]);
           relationshipKeyword = (
             <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
           );
@@ -166,7 +179,7 @@ export default function Agreement() {
     <React.Fragment>
       <h1>Agreement Example</h1>
       <div style={{ border: "2px solid green", margin: "10px" }}>
-        {renderRect(data["UCLA"]["DeAnza College"]["Physics/B.A."][1], false)}
+        {renderRect(data["UCLA"]["DeAnza College"]["Physics/B.A."][1])}
       </div>
     </React.Fragment>
   );
