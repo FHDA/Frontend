@@ -290,6 +290,135 @@ exports.data = {
           ],
           relationship: "",
         },
+        {
+          message: "STRONGLY RECOMMENDED COURSES",
+          content: [
+            {
+              message: "Introduction to Computer ScienceI (4.00)",
+              content: "COM SCI 31",
+              relationship: "",
+              equivalences: {
+                message: "",
+                content: [
+                  {
+                    message: "",
+                    content: [
+                      {
+                        message:
+                          "Beginning Programming Methodologies in C++ (4.50)",
+                        content: "CIS 22A",
+                        relationship: "",
+                      },
+                      {
+                        message:
+                          "Intermediate Programming Methodologies in C++ (4.50)",
+                        content: "CIS 22B",
+                        relationship: "and",
+                      },
+                    ],
+                    relationship: "",
+                  },
+                  {
+                    message: "",
+                    content: [
+                      {
+                        message:
+                          "Beginning Programming Methodologies in C++ (4.50)",
+                        content: "CIS 22A",
+                        relationship: "",
+                      },
+                      {
+                        message:
+                          "Intermediate Programming Methodologies in C++ - HONORS(4.50)",
+                        content: "CIS 22BH",
+                        relationship: "and",
+                      },
+                    ],
+                    relationship: "or",
+                  },
+                  {
+                    message: "Programming in C++ for C/Java Programmers (4.50)",
+                    content: "CIS 27",
+                    relationship: "or",
+                  },
+                  {
+                    message:
+                      "Intermediate Programming Methodologies in C++ (4.50)",
+                    content: "CIS 22B",
+                    relationship: "or",
+                  },
+                ],
+                relationship: "",
+              },
+            },
+            {
+              message: "Introduction to Computer ScienceII (4.00)",
+              content: "COM SCI 32",
+              relationship: "",
+              equivalences: {
+                message: "",
+                content: [
+                  {
+                    message:
+                      "Intermediate Programming Methodologies in C++ (4.50)",
+                    content: "CIS 22B",
+                    relationship: "",
+                  },
+                  {
+                    message: "Data Abstraction and Structures (4.50)",
+                    content: "CIS 22C",
+                    relationship: "and",
+                  },
+                ],
+                relationship: "",
+              },
+            },
+            {
+              message: "Introduction to Computer Organization (5.00)",
+              content: "COM SCI 33",
+              relationship: "",
+              equivalences: {
+                message: "",
+                content: [
+                  {
+                    message:
+                      "Introduction to x86 Processor Assembly Languageand Computer Architecture(4.50)",
+                    content: "CIS 21JA",
+                    relationship: "",
+                  },
+                  {
+                    message:
+                      "Advanced x86 Processor Assembly Programming (4.50)",
+                    content: "CIS 21JB",
+                    relationship: "or",
+                  },
+                ],
+                relationship: "",
+              },
+            },
+            {
+              message: "Logic Design of DigitalSystems (4.00)",
+              content: "COM SCI M51A",
+              relationship: "",
+              equivalences: {
+                message: "No Course Articulated",
+                content: "",
+                relationship: "",
+              },
+            },
+            {
+              message: "Introduction to DiscreteStructures (4.00)",
+              content: "MATH 61",
+              relationship: "",
+              equivalences: {
+                message: "Discrete Mathematics (5.00)",
+                content: "MATH 22",
+                relationship: "",
+              },
+            },
+          ],
+          relationship: "",
+        },
       ],
       "Physics/B.A.": [
         {

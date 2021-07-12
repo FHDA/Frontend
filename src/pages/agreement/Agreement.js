@@ -175,11 +175,32 @@ export default function Agreement() {
     }
   };
 
+  const rawWholeAgreement = data["UCLA"]["DeAnza College"]["Physics/B.A."];
+
+  const wholeAgreement = [];
+
+  for (const section of rawWholeAgreement) {
+    if (
+      typeof section["content"] === "string" ||
+      section["content"] instanceof String
+    ) {
+      wholeAgreement.push(
+        <div>
+          <h4>{section["message"]}</h4>
+          <p style={{ border: "2px solid purple", margin: "10px" }}>
+            {section["content"]}
+          </p>
+        </div>
+      );
+    } else {
+      wholeAgreement.push(renderRect(section));
+    }
+  }
   return (
     <React.Fragment>
       <h1>Agreement Example</h1>
-      <div style={{ border: "2px solid green", margin: "10px" }}>
-        {renderRect(data["UCLA"]["DeAnza College"]["Physics/B.A."][1])}
+      <div style={{ border: "4px solid green", margin: "10px" }}>
+        {wholeAgreement}
       </div>
     </React.Fragment>
   );
