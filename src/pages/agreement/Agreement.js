@@ -175,7 +175,7 @@ export default function Agreement() {
     }
   };
 
-  const rawWholeAgreement = data["UCLA"]["DeAnza College"]["Physics/B.A."];
+  const rawWholeAgreement = data["UCLA"]["DeAnza College"]["Anthropology/B.S."];
 
   const wholeAgreement = [];
 
@@ -187,9 +187,10 @@ export default function Agreement() {
       wholeAgreement.push(
         <div>
           <h4>{section["message"]}</h4>
-          <p style={{ border: "2px solid purple", margin: "10px" }}>
-            {section["content"]}
-          </p>
+          <p
+            style={{ border: "2px solid purple", margin: "10px" }}
+            dangerouslySetInnerHTML={{ __html: section["content"] }}
+          ></p>
         </div>
       );
     } else {
