@@ -93,12 +93,13 @@ export default function Agreement() {
             <div>
               <div style={{ clear: "both" }}></div>
               <div style={{ float: "left" }}>
+                <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
                 <div style={{ border: "2px solid red", margin: "10px" }}>
                   {rect}
                 </div>
               </div>
               <div style={{ float: "right" }}>
-                {obj["relationship"]}
+                <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
                 {equalRect}
               </div>
               <div style={{ clear: "both" }}></div>
@@ -175,7 +176,7 @@ export default function Agreement() {
     }
   };
 
-  const rawWholeAgreement = data["UCLA"]["DeAnza College"]["Anthropology/B.S."];
+  const rawWholeAgreement = data["UCLA"]["DeAnza College"]["Physics/B.A."];
 
   const wholeAgreement = [];
 
