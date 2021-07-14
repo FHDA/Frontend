@@ -201,8 +201,14 @@ export default function Agreement(props) {
   }
   return (
     <React.Fragment>
-      <h1>Agreement Example</h1>
-      <div style={{ border: "4px solid green", margin: "10px" }}>
+      <h1 style={{ textAlign: "center" }}>Agreement Example</h1>
+      <div
+        style={{
+          border: "4px solid green",
+          margin: "10px",
+          textAlign: "center",
+        }}
+      >
         {wholeAgreement}
       </div>
     </React.Fragment>

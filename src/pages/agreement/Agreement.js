@@ -101,7 +101,7 @@ function Agreement() {
     );
   }
 
-  return <ShowAgreement data={agreement} />;
+  return <ShowAgreement data={agreement} style={{ textAlign: "center" }} />;
 }
 
 export default Agreement;
