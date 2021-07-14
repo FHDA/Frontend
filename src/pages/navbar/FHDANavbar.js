@@ -1,13 +1,16 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
-import { useOktaAuth } from '@okta/okta-react'
+import { useOktaAuth } from "@okta/okta-react";
 import da_logo from "../../assets/pic/fhdalogo.jpg";
 
 const FHDANavbar = ({ setCorsErrorModalOpen }) => {
   const { authState, oktaAuth } = useOktaAuth();
-  
-  const isCorsError = (err) => (err.name === 'AuthApiError' && !err.errorCode && err.xhr.message === 'Failed to fetch');
+
+  const isCorsError = (err) =>
+    err.name === "AuthApiError" &&
+    !err.errorCode &&
+    err.xhr.message === "Failed to fetch";
   const logout = async () => {
     try {
       await oktaAuth.signOut();
@@ -31,17 +34,31 @@ const FHDANavbar = ({ setCorsErrorModalOpen }) => {
           <img className="navbar-img" src={da_logo} alt="" /> FHDATime
         </Link>
         <Nav className="mr-auto">
-          <Link className="nav-link" to="/">Home</Link>
-          <Link className="nav-link" to="/catalog">Catalog</Link>
-          <Link className="nav-link" to="/story">Story</Link>
-          <Link className="nav-link" to="/about">About</Link>
+          <Link className="nav-link" to="/">
+            Home
+          </Link>
+          <Link className="nav-link" to="/catalog">
+            Catalog
+          </Link>
+          <Link className="nav-link" to="/story">
+            Story
+          </Link>
+          <Link className="nav-link" to="/about">
+            About
+          </Link>
+          <Link className="nav-link" to="/agreement">
+            Agreement
+          </Link>
           {authState.isAuthenticated && (
-            <Link className="nav-link" onClick={logout} to='/'>Logout</Link>
+            <Link className="nav-link" onClick={logout} to="/">
+              Logout
+            </Link>
           )}
           {!authState.isPending && !authState.isAuthenticated && (
-            <Link className="nav-link" to='/login'>Login</Link>
+            <Link className="nav-link" to="/login">
+              Login
+            </Link>
           )}
-          
         </Nav>
       </Navbar>
     </div>
