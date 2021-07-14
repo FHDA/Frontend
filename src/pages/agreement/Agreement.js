@@ -1,209 +1,107 @@
-import React from "react";
-
+import React, { useState, useRef } from "react";
+import Select from "react-select";
+import { Form, Button } from "react-bootstrap";
+import ShowAgreement from "./ShowAgreement";
 const { data } = require("./exampleData");
 
-export default function Agreement() {
-  const renderRect = (obj) => {
-    if (
-      typeof obj["content"] === "string" ||
-      obj["content"] instanceof String
-    ) {
-      let relationshipKeyword = null;
-      {
-        if ("relationship" in obj && obj["relationship"] !== "") {
-          relationshipKeyword = (
-            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-          );
-        }
-      }
-      let foundEq = false;
-      let needBorder = false;
-      let equalRect = [];
-      if ("equivalences" in obj && obj["equivalences"] !== "") {
-        //console.log(obj["equivalences"]);
-        foundEq = true;
-        equalRect = renderEq(obj["equivalences"]);
-      }
+const universityList = [
+  { label: "UCLA", value: "UCLA" },
+  { label: "UC Berkeley", value: "UC Berkeley" },
+  { label: "UCSD", value: "UCSD" },
+];
 
-      let result = null;
-      if ("equivalences" in obj) {
-        needBorder = true;
-      }
+const ccList = [
+  { label: "DeAnza College", value: "DeAnza College" },
+  { label: "Foothill College", value: "Foothill College" },
+];
 
-      if (needBorder) {
-        result = (
-          <React.Fragment>
-            <div style={{ clear: "both" }}></div>
-            <div>
-              <div style={{ clear: "both" }}></div>
-              <div style={{ float: "left" }}>
-                {relationshipKeyword ? relationshipKeyword : null}
-                <div style={{ border: "2px solid red", margin: "10px" }}>
-                  <div>{`${obj["content"]} - ${obj["message"]}`}</div>
-                </div>
-              </div>
-              <div style={{ float: "right" }}>
-                {relationshipKeyword ? relationshipKeyword : null}
-                {equalRect}
-              </div>
-              <div style={{ clear: "both" }}></div>
-            </div>
-          </React.Fragment>
-        );
-      } else {
-        result = (
-          <React.Fragment>
-            {relationshipKeyword ? relationshipKeyword : null}
-            <div>
-              <div>{`${obj["content"]} - ${obj["message"]}`}</div>
-            </div>
-            {equalRect}
-          </React.Fragment>
-        );
-      }
+//this can be done by ajax
+const majorList = [
+  { label: "Physics/B.A.", value: "Physics/B.A." },
+  { label: "Mathematics/B.S.", value: "Mathematics/B.S." },
+  { label: "Data Theory/B.S.", value: "Data Theory/B.S." },
+  { label: "Computer Science/B.S.", value: "Computer Science/B.S." },
+  {
+    label: "Asian American Studies/B.A.",
+    value: "Asian American Studies/B.A.",
+  },
+  { label: "Anthropology/B.S.", value: "Anthropology/B.S." },
+  { label: "Labor Studies/B.A.", value: "Labor Studies/B.A." },
+  { label: "Global Studies/B.A.", value: "Global Studies/B.A." },
+  { label: "Psychobiology/B.S.", value: "Psychobiology/B.S." },
+];
 
-      return result;
-    } else {
-      //console.log(typeof obj["content"]);
-      const rect = [];
+function Agreement() {
+  const [onSearchTab, setOnSearchTab] = useState(true);
+  const [loadingMajor, setLoadingMajor] = useState(false);
 
-      for (const component of obj["content"]) {
-        const courseRect = renderRect(component, true);
-        rect.push(courseRect);
-      }
+  const [university, setUniversity] = useState("");
+  const [cc, setCc] = useState("");
+  const [major, setMajor] = useState("");
+  const [agreement, setAgreement] = useState([]);
 
-      let equalRect = [];
-      let foundEql = false;
-      if ("equivalences" in obj && obj["equivalences"] !== "") {
-        //console.log(obj["equivalences"]);
-        foundEql = true;
-        equalRect = renderEq(obj["equivalences"]);
-      }
+  const univRef = useRef();
+  const ccRef = useRef();
+  const majorRef = useRef();
 
-      let needTitle = false;
-      if (obj["message"] !== "") {
-        needTitle = true;
-      }
+  const searchHandler = (event) => {
+    console.log(university, cc, major);
+    //fetch Data from DB, suppose we have data here
 
-      if (foundEql) {
-        return (
-          <React.Fragment>
-            <div style={{ clear: "both" }}></div>
-            {needTitle && <h4>{obj["message"]}</h4>}
-            <div>
-              <div style={{ clear: "both" }}></div>
-              <div style={{ float: "left" }}>
-                <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-                <div style={{ border: "2px solid red", margin: "10px" }}>
-                  {rect}
-                </div>
-              </div>
-              <div style={{ float: "right" }}>
-                <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-                {equalRect}
-              </div>
-              <div style={{ clear: "both" }}></div>
-            </div>
-          </React.Fragment>
-        );
-      }
-
-      let flag = true;
-      if (equalRect.length === 0) {
-        flag = false;
-      }
-
-      return (
-        <React.Fragment>
-          <div style={{ clear: "both" }}></div>
-          <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-          {needTitle && <h4>{obj["message"]}</h4>}
-          <div style={{ border: "2px solid red", margin: "10px" }}>{rect}</div>
-          {flag && (
-            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-          )}
-          {equalRect}
-        </React.Fragment>
-      );
-    }
+    setAgreement(data["UCLA"]["DeAnza College"][major]);
+    setOnSearchTab(false);
   };
 
-  const renderEq = (obj) => {
-    if (
-      typeof obj["content"] === "string" ||
-      obj["content"] instanceof String
-    ) {
-      let relationshipKeyword = null;
-      {
-        if ("relationship" in obj && obj["relationship"] !== "") {
-          //console.log(obj["relationship"]);
-          relationshipKeyword = (
-            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-          );
-        }
-      }
-
-      return (
-        <React.Fragment>
-          {relationshipKeyword ? relationshipKeyword : null}
-          <div>
-            <div>{`${obj["content"]} - ${obj["message"]}`}</div>
-          </div>
-        </React.Fragment>
-      );
-    } else {
-      const rect = [];
-      for (const component of obj["content"]) {
-        const courseRect = renderEq(component);
-        rect.push(courseRect);
-      }
-
-      let relationshipKeyword = null;
-      {
-        if ("relationship" in obj && obj["relationship"] !== "") {
-          relationshipKeyword = (
-            <div style={{ fontWeight: "bold" }}>{obj["relationship"]}</div>
-          );
-        }
-      }
-
-      return (
-        <React.Fragment>
-          {relationshipKeyword ? relationshipKeyword : null}
-          <div style={{ border: "2px solid blue", margin: "10px" }}>{rect}</div>
-        </React.Fragment>
-      );
-    }
-  };
-
-  const rawWholeAgreement = data["UCLA"]["DeAnza College"]["Physics/B.A."];
-
-  const wholeAgreement = [];
-
-  for (const section of rawWholeAgreement) {
-    if (
-      typeof section["content"] === "string" ||
-      section["content"] instanceof String
-    ) {
-      wholeAgreement.push(
-        <div>
-          <h4>{section["message"]}</h4>
-          <p
-            style={{ border: "2px solid purple", margin: "10px" }}
-            dangerouslySetInnerHTML={{ __html: section["content"] }}
-          ></p>
-        </div>
-      );
-    } else {
-      wholeAgreement.push(renderRect(section));
-    }
+  if (onSearchTab) {
+    return (
+      <Form
+        style={{
+          width: "40vw",
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: "20vh",
+        }}
+      >
+        <label htmlFor="univ">Institution</label>
+        <Select
+          ref={univRef}
+          inputId="univ"
+          options={universityList}
+          onChange={(e) => {
+            setUniversity(e.value);
+          }}
+        />
+        <label htmlFor="cc">Agreements with Other Institutions</label>
+        <Select
+          ref={ccRef}
+          inputId="cc"
+          options={ccList}
+          onChange={(e) => {
+            setCc(e.value);
+          }}
+        />
+        <label htmlFor="major">Major</label>
+        <Select
+          ref={majorRef}
+          inputId="major"
+          options={majorList}
+          onChange={(e) => {
+            setMajor(e.value);
+          }}
+        />
+        <Button
+          variant="primary"
+          type="submit"
+          size="lg"
+          onClick={searchHandler}
+        >
+          Search
+        </Button>
+      </Form>
+    );
   }
-  return (
-    <React.Fragment>
-      <h1>Agreement Example</h1>
-      <div style={{ border: "4px solid green", margin: "10px" }}>
-        {wholeAgreement}
-      </div>
-    </React.Fragment>
-  );
+
+  return <ShowAgreement data={agreement} />;
 }
+
+export default Agreement;
